@@ -6,14 +6,15 @@ import uuid
 class Board():
 
   def __init__(self):
-    self.chirpData = {}
     self.deserializeUser()
+    self.uid = str(uuid.uuid4())
 
 
 
 
 
   def show_menu(self):
+    global userID
 
     print('what would you like to do?')
     print("1. New User Account")
@@ -27,34 +28,44 @@ class Board():
 
     if user_choice == "1":
       self.deserializeUser()
-      uid = str(uuid.uuid4())
-      self.users[uid] = dict()
+      self.user[self.uid] = dict()
       print("Create a New Account to get chirpy!.")
-      inp1 = input("Enter screen name: " )
-      self.users[uid]['username'] = inp1
+      inp1 = input("Enter screen name: ")
+      self.user[self.uid]['username'] = inp1
       inp2 = input("Enter full name: ")
-      self.users[uid]['fullname'] = inp2
+      self.user[self.uid]['fullname'] = inp2
       self.serializeUser()
-      print(self.users)
+      print(self.user)
 
     if user_choice == "2":
       self.deserializeUser()
       print("Select a User to chirp it up with!.")
-      print(self.userSelect())
-      inp = int(input(">"))
+      self.showUser()
+      inp = input(">")
+      userID = self.userSelect(inp)
 
 
 
 
 
     if user_choice == "3":
+      self.deserializeChirp()
       print("Time to get chirpy! Select any chirp to get chirpin'.")
-      inp = input(">")
+      print('>>>>>PUBLIC<<<<<')
+      self.showPublicChirp()
 
 
     if user_choice == "4":
+      self.deserializeChirp()
+      self.chirp[self.uid] = dict()
       print("Send a new public chirp!")
       inp = input(">")
+      self.chirp[self.uid]['chirp'] = inp
+      self.chirp[self.uid]['uid'] = userID
+      self.chirp[self.uid]['private'] = False
+      self.chirp[self.uid]['recipient'] = None
+      self.serializeChirp()
+      print(self.chirp)
 
 
     if user_choice == "5":
@@ -67,37 +78,82 @@ class Board():
 
 
 
-  # def serializeChirp(self):
-  #   with open('chirps.txt', 'wb+') as u:
-  #     pickle.dump(self.chirpData, u)
+  def serializeChirp(self):
+    with open('chirps.txt', 'wb+') as u:
+      pickle.dump(self.chirp, u)
 
-  # def deserializeChirp(self):
-  # try:
-  #   with open('chirps.txt', 'rb+') as u: #rb in read binary
-  #     self.chirpData = pickle.load(u)
+  def deserializeChirp(self):
+    try:
+      with open('chirps.txt', 'rb+') as u: #rb in read binary
+        self.chirp = pickle.load(u)
 
-  # except: EOFError
+    except EOFError:
+      self.chirp = {}
+
+    except FileNotFoundError:
+      self.chirp = {}
 
 
   def serializeUser(self):
     with open('userData.txt', 'wb+') as u:
-      pickle.dump(self.users, u)
+      pickle.dump(self.user, u)
 
   def deserializeUser(self):
     try:
       with open('userData.txt', 'rb+') as u: #rb in read binary
-        self.users = pickle.load(u)
+        self.user = pickle.load(u)
 
     except EOFError:
-      self.users = {}
+      self.user = {}
 
     except FileNotFoundError:
-      self.users = {}
+      self.user = {}
 
-  def userSelect(self):
-    d = self.users
-    for key, value in d.items():
-      return d
+  def showUser(self):
+    u = self.user
+    for k,v in u.items():
+      print(v['username'])
+      # return(v['username'])
+
+  # def showFullName(self):
+
+
+  def userSelect(self, inp):
+    u = self.user
+    for k,v in u.items():
+      if inp == v['username']:
+        return k
+
+  def showPublicChirp(self):
+    c = self.chirp
+    for k,v in c.items():
+      print(v['chirp'])
+
+
+  def testUserCreation(self, inp1, inp2):
+    # tests to make sure user object has username and fullname keys and values
+    self.user[self.uid] = dict()
+    testUN = self.user[self.uid]['username'] = inp1
+    testFN = self.user[self.uid]['fullname'] = inp2
+    return testUN, testFN
+
+
+  def testChirpCreation(self, inp1, inp2, inp3):
+    #tests to make sure the public chirp object has chirp(message), private, recipient keys and values
+    self.chirp[self.uid] = dict()
+    testChirp = self.chirp[self.uid]['chirp'] = inp1
+    testPrivate = self.chirp[self.uid]['private'] = inp2
+    testRecipient = self.chirp[self.uid]['recipient'] = inp3
+    return testChirp, testPrivate, testRecipient
+
+
+
+      # return list of usernames if username is selected send value to key in chirp
+
+    # if user input equal to value being returned add ID  to ID key in chirp
+    # if private is selected private equals true, if not false return value and add to private key in chirp
+    # if users selects a reciepent return reciepent ID and add to reciepent key in chirp
+
 
 
 

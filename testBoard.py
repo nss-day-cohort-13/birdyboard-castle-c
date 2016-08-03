@@ -16,29 +16,23 @@ class TestBoard(unittest.TestCase):
   def setUp(self):
     self.board = Board()
     self.board.deserializeUser()
+    self.board.deserializeChirp()
+    self.test_username = "roor"
+    self.test_fullname = "castle"
+    self.test_chirp = "hi"
+    self.test_private = False
+    self.test_recipient = None
 
 
-  # def test_user_ID(self):
-    # self.assertEqual(self.board.create_ID(1), 1)
 
-  def test_user_full_name(self):
-    self.assertEqual(self.board.fullnameSelect(), (1, 'castle crawford'))
-
-  def test_user_screen_name(self):
-    self.assertEqual(self.board.usernameSelect(), (1, 'RooR'))
+  def test_testUserCreation(self):
+    self.assertEqual(self.board.testUserCreation(self.test_username, self.test_fullname,), ('roor', 'castle'))
+    # tests to make sure user object has username and fullname keys and values
 
 
-  # def test_user_select(self):
-  #   self.assertEqual(self.board.select_user("RooR"), "RooR")
-
-
-  # def test_chirp_public(self):
-  #   self.assertEqual(self.board.public_chirp("RooR", "Rawr", "Roar"), "RooR", "Rawr", "Roar")
-
-
-  # def test_chirp_private(self):
-  #   self.assertEqual(self.board.private_chirp("RooR", "Rawr"), "RooR", "Rawr")
-
+  def test_testPublicChirpCreation(self):
+    self.assertEqual(self.board.testChirpCreation(self.test_chirp, self.test_private, self.test_recipient), ('hi', False, None))
+    #tests to make sure the public chirp object has chirp(message), private, recipient keys and values
 
 
 if __name__ == '__main__':
