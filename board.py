@@ -130,21 +130,21 @@ class Board():
       print(v['chirp'])
 
 
-  def testUserCreation(self, inp1, inp2):
+  # def testUserCreation(self, inp1, inp2):
     # tests to make sure user object has username and fullname keys and values
-    self.user[self.uid] = dict()
-    testUN = self.user[self.uid]['username'] = inp1
-    testFN = self.user[self.uid]['fullname'] = inp2
-    return testUN, testFN
+    # self.user[self.uid] = dict()
+    # testUN = self.user[self.uid]['username'] = inp1
+    # testFN = self.user[self.uid]['fullname'] = inp2
+    # return testUN, testFN
 
 
-  def testChirpCreation(self, inp1, inp2, inp3):
-    #tests to make sure the public chirp object has chirp(message), private, recipient keys and values
-    self.chirp[self.uid] = dict()
-    testChirp = self.chirp[self.uid]['chirp'] = inp1
-    testPrivate = self.chirp[self.uid]['private'] = inp2
-    testRecipient = self.chirp[self.uid]['recipient'] = inp3
-    return testChirp, testPrivate, testRecipient
+  # def testChirpCreation(self, inp1, inp2, inp3):
+    #tests to make sure the chirp object has chirp(message), private, recipient keys and values
+    # self.chirp[self.uid] = dict()
+    # testChirp = self.chirp[self.uid]['chirp'] = inp1
+    # testPrivate = self.chirp[self.uid]['private'] = inp2
+    # testRecipient = self.chirp[self.uid]['recipient'] = inp3
+    # return testChirp, testPrivate, testRecipient
 
 
 

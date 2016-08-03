@@ -15,8 +15,13 @@ class TestBoard(unittest.TestCase):
   @classmethod
   def setUp(self):
     self.board = Board()
+    self.TestBoard = TestBoard()
     self.board.deserializeUser()
     self.board.deserializeChirp()
+    self.user = {}
+    self.chirp = {}
+    self.uid = str(uuid.uuid4())
+
     self.test_username = "roor"
     self.test_fullname = "castle"
     self.test_chirp = "hi"
@@ -25,14 +30,31 @@ class TestBoard(unittest.TestCase):
 
 
 
+
+  def userCreation(self, inp1, inp2):
+    # tests to make sure user object has username and fullname keys and values
+    self.user[self.uid] = dict()
+    testUN = self.user[self.uid]['username'] = inp1
+    testFN = self.user[self.uid]['fullname'] = inp2
+    return testUN, testFN
+
   def test_testUserCreation(self):
-    self.assertEqual(self.board.testUserCreation(self.test_username, self.test_fullname,), ('roor', 'castle'))
+    self.assertEqual(self.TestBoard.userCreation(self.test_username, self.test_fullname), ('roor', 'castle'))
     # tests to make sure user object has username and fullname keys and values
 
 
-  def test_testPublicChirpCreation(self):
-    self.assertEqual(self.board.testChirpCreation(self.test_chirp, self.test_private, self.test_recipient), ('hi', False, None))
-    #tests to make sure the public chirp object has chirp(message), private, recipient keys and values
+  def chirpCreation(self, inp1, inp2, inp3):
+    #tests to make sure the chirp object has chirp(message), private, recipient keys and values
+    self.chirp[self.uid] = dict()
+    testChirp = self.chirp[self.uid]['chirp'] = inp1
+    testPrivate = self.chirp[self.uid]['private'] = inp2
+    testRecipient = self.chirp[self.uid]['recipient'] = inp3
+    return testChirp, testPrivate, testRecipient
+
+
+  def test_testChirpCreation(self):
+    self.assertEqual(self.TestBoard.chirpCreation(self.test_chirp, self.test_private, self.test_recipient), ('hi', False, None))
+    #tests to make sure the chirp object has chirp(message), private, recipient keys and values
 
 
 if __name__ == '__main__':
