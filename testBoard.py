@@ -38,7 +38,6 @@ class TestBoard(unittest.TestCase):
     # tests to make sure user object has username and fullname keys and values
 
 
-
   def chirpCreation(self, inp1, inp2, inp3):
     #tests to make sure the chirp object has chirp(message), private, recipient keys and values
     self.chirp[self.uid] = dict()
@@ -51,6 +50,7 @@ class TestBoard(unittest.TestCase):
   def test_testChirpCreation(self):
     self.assertEqual(self.TestBoard.chirpCreation(self.test_chirp, self.test_private, self.test_recipient), ('hi', False, None))
     #tests to make sure the chirp object has chirp(message), private, recipient keys and values
+
 
 
 if __name__ == '__main__':
