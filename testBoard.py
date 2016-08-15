@@ -10,9 +10,8 @@ class TestBoard(unittest.TestCase):
   def setUp(self):
     self.board = Board()
     self.TestBoard = TestBoard()
-    self.board.deserializeUser()
-    self.board.deserializeChirp()
-    self.user = {}
+    self.user
+    self.convo = {}
     self.chirp = {}
     self.uid = str(uuid.uuid4())
 
@@ -50,6 +49,17 @@ class TestBoard(unittest.TestCase):
   def test_testChirpCreation(self):
     self.assertEqual(self.TestBoard.chirpCreation(self.test_chirp, self.test_private, self.test_recipient), ('hi', False, None))
     #tests to make sure the chirp object has chirp(message), private, recipient keys and values
+
+
+  def convoCreation(self, inp1):
+    # tests to make sure convo object has convoname and fullname keys and values
+    self.convo[self.uid] = dict()
+    testID = self.convo[self.uid]['convoname'] = [chirpID]
+    return testUN, testFN
+
+  def test_testconvoCreation(self):
+    self.assertEqual(self.TestBoard.convoCreation(self.test_convoname, self.test_fullname), ('roor', 'castle'))
+    # tests to make sure us
 
 
 
